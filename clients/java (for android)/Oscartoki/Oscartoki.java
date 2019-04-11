@@ -1,8 +1,8 @@
 /*
 * Oscar-Toki Class .
-* This Java class example  take the microservicekey and generate a toki that will change
-* every minute to securize communications betwen clients and microservices.
-* between Client -> Microservice and between Microservice -> Client.
+* This Java class example  take the clientkey and generate a toki that will change
+* every minute to securize communications betwen clients and clients.
+* between Client -> Client and between Client -> Client.
 */
 
 //import for time cheking
@@ -15,27 +15,27 @@ import java.security.NoSuchAlgorithmException;
 
 public class Oscartoki{
 
-    private String microservicekey;
+    private String clientkey;
     private Boolean debugMode = false;
     private String toki;
     private Integer lifetime_of_toki = 3; // not in millisecond or second just the difference between 9 first digits of timestamp
                                           // By assimillation its about 40seconds before the toki will not be valid anymore
 
     /**
-     * A Setter for the microservicekey
+     * A Setter for the clientkey
      * @param a
      */
-    public void setMicroservicekey(String m){
+    public void setClientkey(String m){
       //set passed parameter as name
-      this.microservicekey = m;
+      this.clientkey = m;
     }
     /**
-     * A getter for the microservicekey param
+     * A getter for the clientkey param
      * @return
      */
-    public String getMicroservicekey(){
+    public String getClientkey(){
       //return the set name
-      return this.microservicekey;
+      return this.clientkey;
     }
 
     /**
@@ -125,7 +125,7 @@ public class Oscartoki{
         StringBuilder timeAsString_sb = new StringBuilder(timeAsString);
 
         // Now let manage about the core of the toki
-        String TokiCore = getSHA(getSHA(this.microservicekey + " - " + timeAsString + " - " + this.microservicekey));
+        String TokiCore = getSHA(getSHA(this.clientkey + " - " + timeAsString + " - " + this.clientkey));
         StringBuilder TokiCore_sb = new StringBuilder(TokiCore);
 
         String brouillage = getSHA(timeAsString + "Brouillage de piste").substring(0, 15);
@@ -170,7 +170,7 @@ public class Oscartoki{
       }else{
         tokiPrint("Toki is in time!");
 
-        String TokiCore = getSHA(getSHA(this.microservicekey + " - " + original_toki_time + " - " + this.microservicekey));
+        String TokiCore = getSHA(getSHA(this.clientkey + " - " + original_toki_time + " - " + this.clientkey));
         StringBuilder TokiCore_sb = new StringBuilder(TokiCore);
 
         String reComputed = TokiCore_sb.reverse().toString();
@@ -207,12 +207,12 @@ public class Oscartoki{
       System.out.println("# ----------------------------------");
       // It's important to read this variable fomr a config file and not to 
       // put it hard in the code like this[FOR SECURITY], it's just a quick example 
-      String Example_microservicekey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
+      String Example_clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
       //set name member of this object
-      OscarToki.setMicroservicekey(Example_microservicekey);
+      OscarToki.setClientkey(Example_clientkey);
       OscarToki.generateToki();
       // print the name
-      System.out.println("Microservicekey: '" + OscarToki.getMicroservicekey()+"'");
+      System.out.println("Clientkey: '" + OscarToki.getClientkey()+"'");
       System.out.println("Toki: '" + OscarToki.getToki()+"'");
 
       System.out.print("\n");

@@ -18,12 +18,12 @@ public class Test
         
         // It's important to read this variable from a config file and not to 
         // put it hard in the code like this[FOR SECURITY], it's just a quick example 
-        String Example_microservicekey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
+        String Example_clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
         //set name member of this object
-        OscarToki.setMicroservicekey(Example_microservicekey);
+        OscarToki.setClientkey(Example_clientkey);
         OscarToki.generateToki();
         // print the name
-        System.out.println("Microservicekey: '" + OscarToki.getMicroservicekey()+"'");
+        System.out.println("Clientkey: '" + OscarToki.getClientkey()+"'");
         System.out.println("Toki: '" + OscarToki.getToki()+"'");
 
         /**

@@ -4,25 +4,25 @@ var sha256 = require('js-sha256');
 class Oscartokiclass {
 
     constructor(debugMode = false) {
-        this.microservicekey = "";
+        this.clientkey = "";
         this.debugMode = debugMode;
         this.toki = "";
         this.lifetime_of_toki = 3;
     }
   
     /**
-     * A Setter for the microservicekey param
+     * A Setter for the clientkey param
      * @return
      */
-    setMicroservicekey(m){
-        this.microservicekey = m;
+    setClientkey(m){
+        this.clientkey = m;
     }
     /**
-     * A getter for the microservicekey param
+     * A getter for the clientkey param
      * @return
      */
-    getMicroservicekey(){
-        return this.microservicekey;
+    getClientkey(){
+        return this.clientkey;
     }
   
 
@@ -86,7 +86,7 @@ class Oscartokiclass {
         const timeAsString = time.toString();
 
         // Now let manage about the core of the toki
-        const TokiCore = this.getSHA(this.getSHA(this.microservicekey + " - " + timeAsString + " - " + this.microservicekey));
+        const TokiCore = this.getSHA(this.getSHA(this.clientkey + " - " + timeAsString + " - " + this.clientkey));
 
         const brouillage = this.getSHA(timeAsString + "Brouillage de piste").substring(0, 15);
         //System.out.println("Time in Milliseconds: " + time);
@@ -131,7 +131,7 @@ class Oscartokiclass {
       }else{
         this.tokiPrint("Toki is in time!");
 
-        const TokiCore = this.getSHA(this.getSHA(this.microservicekey + " - " + original_toki_time + " - " + this.microservicekey));
+        const TokiCore = this.getSHA(this.getSHA(this.clientkey + " - " + original_toki_time + " - " + this.clientkey));
         const reComputed = this.reverseString(TokiCore);
         const given = arrOfElt[1];
 
@@ -158,14 +158,14 @@ let Oscartoki = new Oscartokiclass(true);
  * *****************************************************************************
  * EXAMPLE:
  * FOR THE GENERATION OF THE TOKI TO ADD IN HEADER OFF EACH REQUESTS.
- * IN THE PARAMETER: "oscar-toki"
+ * IN THE PARAMETER: "oscar_toki"
  * *****************************************************************************
  * */
 // It's important to read this variable fomr a config file and not to 
 // put it hard in the code like this[FOR SECURITY], it's just a quick example 
-Example_microservicekey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
-// set the microservicekey to Oscartoki
-Oscartoki.setMicroservicekey(Example_microservicekey);
+Example_clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
+// set the clientkey to Oscartoki
+Oscartoki.setClientkey(Example_clientkey);
 // Generate the Toki
 Oscartoki.generateToki();
 

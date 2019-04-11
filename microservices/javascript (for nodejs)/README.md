@@ -1,4 +1,4 @@
-# Oscar-Toki-Javascript
+# Oscar-Toki-Javascript [NodeJS]
 
 This is an implementation of Oscar-Toki in JavaScript.
 
@@ -13,8 +13,8 @@ For this Client, i implemented theese librairies:
 OscarToki Protocol is a simple way to generate a kind of a token, that have:
 
 - A lifetime of 40 seconds.
-- Can only be compute with a peer that have a "valid" Microservicekey.
-- In each request just add in the header the parameter `oscar-toki` that content that toki.
+- Can only be compute with a peer that have a "valid" Clientkey.
+- In each request just add in the header the parameter `oscar_toki` that content that toki.
 
 ## How to install
 
@@ -37,14 +37,14 @@ let Oscartoki = new Oscartokiclass(true);
  * *****************************************************************************
  * EXAMPLE:
  * FOR THE GENERATION OF THE TOKI TO ADD IN HEADER OFF EACH REQUESTS.
- * IN THE PARAMETER: "oscar-toki"
+ * IN THE PARAMETER: "oscar_toki"
  * *****************************************************************************
  * */
 // It's important to read this variable fomr a config file and not to 
 // put it hard in the code like this[FOR SECURITY], it's just a quick example 
-Example_microservicekey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
-// set the microservicekey to Oscartoki
-Oscartoki.setMicroservicekey(Example_microservicekey);
+Example_clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
+// set the clientkey to Oscartoki
+Oscartoki.setClientkey(Example_clientkey);
 // Generate the Toki
 Oscartoki.generateToki();
 

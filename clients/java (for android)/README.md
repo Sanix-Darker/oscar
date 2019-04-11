@@ -11,8 +11,8 @@ Nothing is required to use OscarToki in Java.
 OscarToki Protocol is a simple way to generate a kind of a token, that have:
 
 - A lifetime of 40 seconds.
-- Can only be compute with a peer that have a "valid" Microservicekey.
-- In each request just add in the header the parameter `oscar-toki` that content that toki.
+- Can only be compute with a peer that have a "valid" Clientkey.
+- In each request just add in the header the parameter `oscar_toki` that content that toki.
 
 ## How to use:
 
@@ -29,15 +29,15 @@ OscarToki Protocol is a simple way to generate a kind of a token, that have:
      * *****************************************************************************
      * EXAMPLE:
      * FOR THE GENERATION OF THE TOKI TO ADD IN HEADER OFF EACH REQUESTS.
-     * IN THE PARAMETER: "oscar-toki"
+     * IN THE PARAMETER: "oscar_toki"
      * *****************************************************************************
      * */
     
     // It's important to read this variable fomr a config file and not to 
     // put it hard in the code like this[FOR SECURITY], it's just a quick example 
-    String Example_microservicekey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
-    // set the microservicekey to OscarToki
-    OscarToki.setMicroservicekey(Example_microservicekey);
+    String Example_clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
+    // set the clientkey to OscarToki
+    OscarToki.setClientkey(Example_clientkey);
     // Generate the Toki
     OscarToki.generateToki();
 
@@ -45,7 +45,7 @@ OscarToki Protocol is a simple way to generate a kind of a token, that have:
     System.out.println("Toki: '" + OscarToki.getToki()+"'");
 
     // Here you can now add it on your header
-    // [oscar-toki]
+    // [oscar_toki]
 
     /**
      * You can Get a newly generated Toki by calling OscarToki.getToki()
@@ -82,6 +82,12 @@ OscarToki Protocol is a simple way to generate a kind of a token, that have:
 
 You can Run Test.java(Available on ./Oscartoki/Test.java) to see what happens!
 
+## To build a new Jar
+
+Just hit this command in the CLI after Generate ".class" of Oscartoki.java by running/Build it:
+```shell
+jar cf ./dist/Oscartoki.jar ./Oscartoki/Oscartoki.class
+```
 
 ## IMPORTANT NOTE:
 
