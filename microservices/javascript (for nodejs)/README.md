@@ -29,7 +29,7 @@ npm install
 - IMPORTANT: Dependant on ES5 or ES6, you can update the class Code as you want to export properly the class.
 - Second Just follow this example to use it on your Java(Android) client:
 
-```javaScript
+```javascript
 
 // Fist import the Class
 const Oscartokiclass = require('./Oscartoki/index');

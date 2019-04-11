@@ -11,7 +11,7 @@ OscarToki Protocol is a simple way to generate a kind of a token, that have:
 The verification must be done on both sides, all transactions must be secured, 
 the exchange between the client and the client and between the client and the client.
 
-## Available MICROSERVICES for Clients-Server and Server-Client requests
+## MICROSERVICES for Clients-Server and Server-Client requests
 
 This is the list of available oscartoki clients implementations.
 - For client's(where we deploy microservices) app:
