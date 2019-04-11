@@ -19,11 +19,6 @@ This is the list of available oscar_toki clients implementations.
     - ReactJs Client wrote in JavaScript
     - Swift Client wrote in Swift
 
-- For client's app:
-    - Python client of Oscar-Toki.
-    - NodeJs client inspired on [ReactJs Source code up here].
-    - Ruby client.
-
 ## Author:
 
 - Sanix-darker (Ange SAADJIO).
