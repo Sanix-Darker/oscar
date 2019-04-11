@@ -1,4 +1,4 @@
-# Oscar-Toki-Swift
+# Oscar-Toki-Swift [in Development]
 
 This is an implementation of Oscar-Toki in Swift.
 

@@ -80,7 +80,12 @@ OscarToki Protocol is a simple way to generate a kind of a token, that have:
 
 ## How to test:
 
-You can Run Test.java to see what happens!
+You can Run Test.java(Available on ./Oscartoki/Test.java) to see what happens!
+
+
+## IMPORTANT NOTE:
+
+IN PRODUCTION, YOU "CAN" USE THE COMPILED VERSION "JAR" AVAILABLE IN (./dist/Oscartoki.jar) AS A LIBRARY TO IMPORT IN THE PROJECT.
 
 
 ## Author

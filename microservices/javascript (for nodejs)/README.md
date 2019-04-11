@@ -2,7 +2,6 @@
 
 This is an implementation of Oscar-Toki in JavaScript.
 
-
 ## Requirements
 
 For this Client, i implemented theese librairies:
@@ -81,11 +80,6 @@ if (Oscartoki.verifyToki(Example_toki) === true){
 ## How to test:
 
 You can Run index.js (in "./Oscartoki") to see what happens!
-
-## IMPORTANT NOTE:
-
-THIS CODE WILL BE DOWNLOAD AS READABLE IN THE CLIENT's BROWSER, 
-IN PRODUCTION, USE ONLY THE MIN FILE AVAILABLE IN (./dist/Oscartoki.min.js), IT's A VERSION OF THE CLASS MINIFIED AND OBFUSCATE.
 
 ## Author
 
