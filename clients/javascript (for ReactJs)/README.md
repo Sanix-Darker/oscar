@@ -31,7 +31,8 @@ npm install
 - First import the class(available in Oscartoki) in your Js script.
 - IMPORTANT: Dependant on ES5 or ES6, you can update the class Code as you want to export properly the class.
 - Second Just follow this example to use it on your Java(Android) client:
-```JavaScript
+
+```javaScript
 // Fist import the Class
 const Oscartokiclass = require('./Oscartoki/index');
 

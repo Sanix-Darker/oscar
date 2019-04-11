@@ -18,6 +18,7 @@ OscarToki Protocol is a simple way to generate a kind of a token, that have:
 
 - First import the module in the script
 - Second Just follow this example to use it on your python client:
+
 ```python
 import sys
 sys.path.append('/Oscartoki')

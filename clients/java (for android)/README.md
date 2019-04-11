@@ -18,6 +18,7 @@ OscarToki Protocol is a simple way to generate a kind of a token, that have:
 
 - First import the class
 - Second Just follow this example to use it on your Java(Android) client:
+
 ```java
 
     // Instantiate the OscarToki
