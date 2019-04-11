@@ -124,18 +124,24 @@ public class Oscartoki{
         String timeAsString = Long.toString(time);
         StringBuilder timeAsString_sb = new StringBuilder(timeAsString);
 
-        // Now let manage about the core of the toki
-        String TokiCore = getSHA(getSHA(this.clientkey + " - " + timeAsString + " - " + this.clientkey));
-        StringBuilder TokiCore_sb = new StringBuilder(TokiCore);
+          if(this.clientkey.length() > 5){
+              // Now let manage about the core of the toki
+              String TokiCore = getSHA(getSHA(this.clientkey + " - " + timeAsString + " - " + this.clientkey));
+              StringBuilder TokiCore_sb = new StringBuilder(TokiCore);
 
-        String brouillage = getSHA(timeAsString + "Brouillage de piste").substring(0, 15);
-        //System.out.println("Time in Milliseconds: " + time);
-        // get first 9 digit of the time
-        String toki_generated = timeAsString_sb.reverse() + "|" + TokiCore_sb.reverse() + "|" + brouillage;
+              String brouillage = getSHA(timeAsString + "Brouillage de piste").substring(0, 15);
+              //System.out.println("Time in Milliseconds: " + time);
+              // get first 9 digit of the time
+              String toki_generated = timeAsString_sb.reverse() + "|" + TokiCore_sb.reverse() + "|" + brouillage;
 
-        tokiPrint("Toki generated: "+toki_generated);
+              tokiPrint("Toki generated: "+toki_generated);
 
-        setToki(toki_generated);
+              setToki(toki_generated);
+
+            }else{
+              System.out.println("Some Error Occurs When Generating the toki, please verify the clientKey you provided.");
+          }
+
     }
     /**
      * This method verify a lamda toki and return true or false if it's good or not
@@ -150,44 +156,52 @@ public class Oscartoki{
       String current_time_string = String.valueOf(current_time);
       current_time = Long.parseLong(current_time_string.substring(0, 9), 10);
 
-      String[] arrOfElt = toki.split("\\|", -1);
-      String get_toki_time = arrOfElt[0];
-      StringBuilder get_toki_time_sb = new StringBuilder(get_toki_time).reverse();
-      long toki_time_tocompare = Long.parseLong(get_toki_time_sb.toString().substring(0, 9), 10);
-      long original_toki_time = Long.parseLong(get_toki_time_sb.toString(), 10);
+        if(toki.length() > 5){
 
-      tokiPrint("Starting Verification.");
-      tokiPrint("current_time: " + current_time);
-      tokiPrint("toki_time_tocompare: " + toki_time_tocompare);
+            String[] arrOfElt = toki.split("\\|", -1);
+            String get_toki_time = arrOfElt[0];
+            StringBuilder get_toki_time_sb = new StringBuilder(get_toki_time).reverse();
+            long toki_time_tocompare = Long.parseLong(get_toki_time_sb.toString().substring(0, 9), 10);
+            long original_toki_time = Long.parseLong(get_toki_time_sb.toString(), 10);
 
-      // S'il y'a une difference de plus de 100seconde, le toki n'est plus valide
-      if(current_time-toki_time_tocompare > lifetime_of_toki){
+            tokiPrint("Starting Verification.");
+            tokiPrint("current_time: " + current_time);
+            tokiPrint("toki_time_tocompare: " + toki_time_tocompare);
 
-        tokiPrint("Toki is too old!");
-        tokiPrint("Toki is invalid!");
-        return false;
+            // S'il y'a une difference de plus de 100seconde, le toki n'est plus valide
+            if(current_time-toki_time_tocompare > lifetime_of_toki){
 
-      }else{
-        tokiPrint("Toki is in time!");
+              tokiPrint("Toki is too old!");
+              tokiPrint("Toki is invalid!");
+              return false;
 
-        String TokiCore = getSHA(getSHA(this.clientkey + " - " + original_toki_time + " - " + this.clientkey));
-        StringBuilder TokiCore_sb = new StringBuilder(TokiCore);
+            }else{
+              tokiPrint("Toki is in time!");
 
-        String reComputed = TokiCore_sb.reverse().toString();
-        String given = arrOfElt[1];
+              String TokiCore = getSHA(getSHA(this.clientkey + " - " + original_toki_time + " - " + this.clientkey));
+              StringBuilder TokiCore_sb = new StringBuilder(TokiCore);
 
-        tokiPrint("Toki given: '" + given + "'");
-        tokiPrint("Toki reComputed: '" + reComputed+"'");
+              String reComputed = TokiCore_sb.reverse().toString();
+              String given = arrOfElt[1];
 
-        if (given.equals(reComputed)){
-          tokiPrint("Toki is valid!");
-          return true;
-        }else{
-          tokiPrint("Toki is invalid!");
-          return false;
+              tokiPrint("Toki given: '" + given + "'");
+              tokiPrint("Toki reComputed: '" + reComputed+"'");
+
+              if (given.equals(reComputed)){
+                tokiPrint("Toki is valid!");
+                return true;
+              }else{
+                tokiPrint("Toki is invalid!");
+                return false;
+              }
+
+            }
+
+          }else{
+            System.out.println("There is an error for the toki you have sent, maybe it's not Valid, please Check it again!");
+            return false;
         }
 
-      }
     }
 
     // An example of using Oscar-Toki
@@ -222,7 +236,7 @@ public class Oscartoki{
       System.out.println("# OscarToki Verification process started!");
       System.out.println("# ----------------------------------");
 
-      String Example_toki = "7674707094551|79f041e75fcdec730f4a1a48099fdefc2e301acccc7057765aaae11ced752afe|b313c1b16118e8e";
+      String Example_toki = "3038471894551|3bca087ea08a60d30a573388609f28eaa96286dbbd77d12ade7fca43d7b09c71|e39ecbfc0d8bccc";
       // Dans la verification, si le timestamp est depasser de 100, ce n'est plus valide
       System.out.println("Example_toki: '" + Example_toki+"'");
 

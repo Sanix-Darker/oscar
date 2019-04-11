@@ -14,7 +14,7 @@ OscarToki Protocol is a simple way to generate a kind of a token, that have:
 
 - A lifetime of 40 seconds.
 - Can only be compute with a peer that have a "valid" Clientkey.
-- In each request just add in the header the parameter `oscar_toki` that content that toki.
+- In each request just add in the header the parameter `oscartoki` that content that toki.
 
 ## How to install
 
@@ -37,7 +37,7 @@ let Oscartoki = new Oscartokiclass(true);
  * *****************************************************************************
  * EXAMPLE:
  * FOR THE GENERATION OF THE TOKI TO ADD IN HEADER OFF EACH REQUESTS.
- * IN THE PARAMETER: "oscar_toki"
+ * IN THE PARAMETER: "oscartoki"
  * *****************************************************************************
  * */
 // It's important to read this variable fomr a config file and not to 
@@ -79,7 +79,7 @@ if (Oscartoki.verifyToki(Example_toki) === true){
 
 ## How to test:
 
-You can Run index.js (in "./Oscartoki") to see what happens!
+You can Run test.js to see what happens!
 
 ## Author
 

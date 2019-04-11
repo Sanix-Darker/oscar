@@ -1,6 +1,3 @@
-import sys
-sys.path.append('/Oscartoki')
-
 from Oscartoki import Oscartokiclass
 
 #  Set the debug Mode to True or False [OPTIONAL], default, debugmode is False.
@@ -10,7 +7,7 @@ Oscartoki = Oscartokiclass.Oscartokiclass(True)
  * *****************************************************************************
  * EXAMPLE:
  * FOR THE GENERATION OF THE TOKI TO ADD IN HEADER OFF EACH REQUESTS.
- * IN THE PARAMETER: "oscar_toki"
+ * IN THE PARAMETER: "oscartoki"
  * *****************************************************************************
  * """
 #  It's important to read this variable fomr a config file and not to 
