@@ -26,29 +26,46 @@ Example_clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873"
 Oscartoki = Oscartokiclass.Oscartokiclass(True)
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
 
     #  set the clientkey to Oscartoki
     Oscartoki.setClientkey(Example_clientkey)
 
-    Example_toki = request.headers.get('oscartoki')
+    try:
+        print("The Toki and the tokikey are presents")
+        Example_toki = request.headers.get('oscartoki')
+        Example_tokikey = request.headers.get('oscartokikey')
 
-    print("Toki received: ", Example_toki)
-    
-    # Third: Verify the oscartoki content in the header
-    # ---------------------------------------------------------
-    #  If the Toki is valid
-    if (Oscartoki.verifyToki(Example_toki) == True):
-        a = int(request.args.get('a'))
-        b = int(request.args.get('b'))
-        response = jsonify({ 'status':'success', 'message': str(a+b) })
+        print("Toki received: ", Example_toki)
+        print("Tokikey received: ", Example_tokikey)
+        
+        # Third: Verify the oscartoki content in the header
+        # ---------------------------------------------------------
+        #  If the Toki is valid
+        if (Oscartoki.verifyTokiKey(Example_toki, Example_tokikey) == True):
+            a = int(request.args.get('a'))
+            b = int(request.args.get('b'))
+            response = jsonify({ 'status':'success', 'message': str(a+b) })
 
-        print("This is a Valid Toki!")
+            print("This is a Valid Tokiand valid tokikey!")
 
-    else: #  the toki is not valid
-        response = jsonify({ 'status':'error', 'message': 'The toki sent is not valid.' })
-        print("Oops! This Toki is not valid!")
+        else: #  the toki is not valid
+            response = jsonify({ 'status':'error', 'message': 'The toki sent is not valid or it\'s key is not matching.' })
+            print("Oops! This Toki is not valid!")
+
+    except:
+        print("11Oops!!")
+        try:
+            print("The Toki is presents")
+
+            Example_toki = request.headers.get('oscartoki')
+
+            response = jsonify({ 'status':'success', 'tokikey': str(Oscartoki.generateTokiKey(Example_toki)) })
+        except:
+            response = jsonify({ 'status':'error', 'message': 'The toki sent is not valid or it\'s key is not matching.' })
+            print("2Oops! This Toki is not valid!")
+
 
     print("Sending response!")
     # Let's allow all Origin requests

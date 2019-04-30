@@ -62,20 +62,50 @@ console.log("Toki: '" + Oscartoki.getToki()+"'");
  * FOR VEFY THE TOKI RECEIVED 
  * *****************************************************************************
  * */
-Example_toki = "7674707094551|79f041e75fcdec730f4a1a48099fdefc2e301acccc7057765aaae11ced752afe|b313c1b16118e8e";
-// If the Toki is valid
-if (Oscartoki.verifyToki(Example_toki) === true){
-    /**
-     * 
-     * NOW!!! 
-     * 
-     * YOU CAN DO YOUR STUFF HERE CUZ THE TOKI IS VALID
-     * 
-     */
-    console.log("This is a Valid Toki!");
-}else{ // the toki is not valid
-    console.log("Oops! This Toki is not valid!");
-}
+const peerURL = Microservice_Url
+Oscartoki.setPeerURL(peerURL);
+// oscar_result[0] is the status of the process if it have won it's true
+// if not it's false
+const checkkToki = Oscartoki.checkToki();
+// And oscar_result[1] will be the key if the proces  won or the error message if the process failed
+checkkToki.then((oscar_result) => {
+    Oscartoki.tokiPrint("Stating tokiCheck...")
+    console.log("oscar_result: ", oscar_result);
+    if(oscar_result[0] === true){
+
+        ///////////////////////////////////////////////////////////////////////
+        //////--------------------------------------------------------------///
+        ////// DO YOUR STUFF HERE CUZ THE TOKI AND IT's KEY ARE BOTH VALIDS  //
+        //////--------------------------------------------------------------///
+        ///////////////////////////////////////////////////////////////////////
+
+        // Now you have the Key (toki and you can request with that now by adding it in headers)
+        // oscartokikey: value
+        const oscartokikey = oscar_result[1];
+        Oscartoki.tokiPrint("oscartokikey: "+ oscartokikey)
+        axios({
+            method: 'get',
+            url: peerURL+"?a=1&b=3", 
+            headers: {
+                'oscartoki': Oscartoki.getToki(),
+                'oscartokikey': oscartokikey,
+            }
+        }).then(response => {
+            console.log(">>response.data: ", response.data);
+
+
+        }).catch(error => {
+
+            Oscartoki.tokiPrint("error: "+ error);
+
+        });
+
+    }else{
+        // Let's print the error
+        Oscartoki.tokiPrint("Error: "+oscar_result[1])
+    }
+
+});
 ```
 
 ## How to test:

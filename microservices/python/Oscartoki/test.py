@@ -28,21 +28,25 @@ print("Toki: '" + Oscartoki.getToki()+"'")
  * FOR VEFY THE TOKI RECEIVED 
  * *****************************************************************************
  * """
-Example_toki = "7674707094551|79f041e75fcdec730f4a1a48099fdefc2e301acccc7057765aaae11ced752afe|b313c1b16118e8e"
 
-#  If the Toki is valid
-if (Oscartoki.verifyToki(Example_toki) == True):
-    """
-    * 
-    * NOW!!! 
-    * 
-    * YOU CAN DO YOUR STUFF HERE CUZ THE TOKI IS VALID
-    * 
-    """
-    print("This is a Valid Toki!")
 
-else: #  the toki is not valid
 
-    print("Oops! This Toki is not valid!")
+
+# Example_toki = "7674707094551|79f041e75fcdec730f4a1a48099fdefc2e301acccc7057765aaae11ced752afe|b313c1b16118e8e"
+
+# #  If the Toki is valid
+# if (Oscartoki.verifyToki(Example_toki) == True):
+#     """
+#     * 
+#     * NOW!!! 
+#     * 
+#     * YOU CAN DO YOUR STUFF HERE CUZ THE TOKI IS VALID
+#     * 
+#     """
+#     print("This is a Valid Toki!")
+
+# else: #  the toki is not valid
+
+#     print("Oops! This Toki is not valid!")
 
 
