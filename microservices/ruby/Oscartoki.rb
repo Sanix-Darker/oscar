@@ -13,6 +13,9 @@ class Oscartokiclass:
         self.debugMode = debugMode
         self.toki = ""
         self.life_time_of_toki = 3
+        self.peerURL = ""
+        self.oscarURL = ""
+        self.appName = "defaultApp"
 
     def setClientkey(self, m)
         """ A Setter for ClientKey"""
@@ -38,11 +41,34 @@ class Oscartokiclass:
         return self.debugMode
 
 
+    def setPeerURL(self, p)
+        """ A Setter for peerURL"""
+        self.peerURL = p
+    def getPeerURL(self)
+        """ A getter for peerURL"""
+        return self.peerURL
+
+
+    def setOscarURL(self, o)
+        """ A Setter for oscarURL"""
+        self.oscarURL = o
+    def getOscarURL(self)
+        """ A getter for oscarURL"""
+        return self.oscarURL
+
+
+    def setAppName(self, a)
+        """ A Setter for appName"""
+        self.appName = a
+    def getAppName(self)
+        """ A getter for appName"""
+        return self.appName
+
+
     def tokiPrint(self, toprintt)
         """ A personnal puts for Oscartoki will show what happens
         when the debug mode is true and hide when the debugmode is false"""
         puts("[ DEBUG-OSCARTOKI ] > " + str(toprintt))
-
 
     def getSHA(self, stringg)
         return sha256(stringg.encode()).hexdigest()

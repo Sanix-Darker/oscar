@@ -14,8 +14,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.ProtocolException;
 import java.net.URL;
 
 public class Oscartoki {
@@ -23,9 +26,11 @@ public class Oscartoki {
   private String clientkey;
   private Boolean debugMode = false;
   private String toki;
-  private final String peerURL = "";
+  private String peerURL = "";
+  private String oscarURL = "";
+  private String appName = "";
   private final Integer lifetime_of_toki = 3; // not in millisecond or second just the difference between 9 first digits
-                                              // of
+                                        // of
   // timestamp
   // By assimillation its about 40seconds before the toki will not be valid
   // anymore
@@ -48,6 +53,66 @@ public class Oscartoki {
   public String getClientkey() {
     // return the set name
     return this.clientkey;
+  }
+
+  /**
+   * A Setter for the peerURL
+   * 
+     * @param p
+   */
+  public void setPeerURL(String p) {
+    // set passed parameter as name
+    this.peerURL = p;
+  }
+
+  /**
+   * A getter for the peerURL param
+   * 
+   * @return
+   */
+  public String getPeerURL() {
+    // return the set name
+    return this.peerURL;
+  }
+
+  /**
+   * A Setter for the peerURL
+   * 
+     * @param o
+   */
+  public void setOscarURL(String o) {
+    // set passed parameter as name
+    this.oscarURL = o;
+  }
+
+  /**
+   * A getter for the peerURL param
+   * 
+   * @return
+   */
+  public String getOscarURL() {
+    // return the set name
+    return this.oscarURL;
+  }
+
+  /**
+   * A Setter for the clientkey
+   * 
+     * @param a
+   */
+  public void setAppName(String a) {
+    // set passed parameter as name
+    this.appName = a;
+  }
+
+  /**
+   * A getter for the clientkey param
+   * 
+   * @return
+   */
+  public String getAppName() {
+    // return the set name
+    return this.appName;
   }
 
   /**
@@ -221,6 +286,28 @@ public class Oscartoki {
 
   }
 
+  public void pingPuceToOscar() throws MalformedURLException, ProtocolException, IOException {
+    String url = this.getOscarURL() + "/api/v1/puces";
+
+    URL obj = new URL(url);
+    HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+    // optional default is GET
+    con.setRequestMethod("GET");
+
+    int responseCode = con.getResponseCode();
+
+    StringBuffer response;
+    try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+      String inputLine;
+      response = new StringBuffer();
+      while ((inputLine = in.readLine()) != null) {
+        response.append(inputLine);
+      }
+    }
+    // print result
+    this.tokiPrint("Response: " + response.toString());
+  }
+
   /**
    * Take the toki in param and generate a uniue queue
    * 
@@ -297,7 +384,8 @@ public class Oscartoki {
    * the peer and return it to be send again with the toki So that both
    * authentificated each other and exchange informations
    * 
-   * @param args
+     * @return 
+     * @throws java.lang.Exception
    */
 
   public String[] checkToki() throws Exception {
@@ -318,14 +406,13 @@ public class Oscartoki {
     this.tokiPrint("\nSending 'GET' request to URL : " + url);
     this.tokiPrint("Response Code : " + responseCode);
 
-    BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-    String inputLine;
-    StringBuffer response = new StringBuffer();
-
-    while ((inputLine = in.readLine()) != null) {
-      response.append(inputLine);
-    }
-    in.close();
+    StringBuffer response;
+      try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+          String inputLine;
+          response = new StringBuffer();
+          while ((inputLine = in.readLine()) != null) {
+              response.append(inputLine);
+          } }
 
     // print result
     this.tokiPrint("Response: " + response.toString());
@@ -376,14 +463,29 @@ public class Oscartoki {
     OscarToki.setDebugmode(true);
 
     /** EXAMPLE FOR THE GENERATION PROCESS TO ADD IN HEADER OFF EACH REQUESTS */
-    System.out.println("# ----------------------------------");
-    System.out.println("# OscarToki Generation started!");
-    System.out.println("# ----------------------------------");
+    System.out.println("# ------------------------------------------------------");
+    System.out.println("# OscarToki Generation started--------------------------");
+    System.out.println("# ------------------------------------------------------");
     // It's important to read this variable fomr a config file and not to
     // put it hard in the code like this[FOR SECURITY], it's just a quick example
+
     String Example_clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
     // set name member of this object
     OscarToki.setClientkey(Example_clientkey);
+
+    String appName = "defaultApp";
+    // set name member of this object
+    OscarToki.setAppName(appName);
+
+    String peerURL = "http://peerurl.com";
+    // set name member of this object
+    OscarToki.setPeerURL(peerURL);
+
+    String oscarURL = "http://oscarurl.com";
+    // set name member of this object
+    OscarToki.setOscarURL(oscarURL);
+
+    // Generate the Toki
     OscarToki.generateToki();
     // print the name
     System.out.println("Clientkey: '" + OscarToki.getClientkey() + "'");
@@ -392,9 +494,9 @@ public class Oscartoki {
     System.out.print("\n");
 
     /** EXAMPLE FOR VEFY THE TOKI RECEIVED */
-    System.out.println("# ----------------------------------");
-    System.out.println("# OscarToki Verification process started!");
-    System.out.println("# ----------------------------------");
+    System.out.println("# -------------------------------------------------------------------");
+    System.out.println("# OscarToki Verification process started-----------------------------");
+    System.out.println("# -------------------------------------------------------------------");
 
     String Example_toki = "3038471894551|3bca087ea08a60d30a573388609f28eaa96286dbbd77d12ade7fca43d7b09c71|e39ecbfc0d8bccc";
     // Dans la verification, si le timestamp est depasser de 100, ce n'est plus
@@ -407,6 +509,9 @@ public class Oscartoki {
 
     if ("true".equals(checktoki_status)) {
 
+      // let's ping Oscar about this exchange
+      OscarToki.pingPuceToOscar();
+
       OscarToki.tokiPrint("Stating tokiCheck...");
 
       String oscartokikey = checktoki_response;
@@ -415,7 +520,7 @@ public class Oscartoki {
       // Now you have the Key (toki and you can request with that now by adding it in
       // headers)
       // Your requested url (http://mira....)
-      String url = "";
+      String url = OscarToki.getPeerURL();
 
       URL obj = new URL(url);
       HttpURLConnection con = (HttpURLConnection) obj.openConnection();

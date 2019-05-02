@@ -7,10 +7,12 @@ class Oscartokiclass:
 
     def __init__(self, debugMode=False):
         self.clientkey = ""
+        self.appName = "defaultApp"
         self.debugMode = debugMode
         self.toki = ""
         self.life_time_of_toki = 3
         self.peerURL = ""
+        self.oscarURL = ""
 
     def setClientkey(self, m):
         """ A Setter for ClientKey"""
@@ -19,14 +21,12 @@ class Oscartokiclass:
         """ A Getter for ClientKey"""
         return self.clientkey
 
-
     def setToki(self, t):
         """ A Setter for Toki"""
         self.toki = t
     def getToki(self):
         """ A getter for Toki"""
         return self.toki
-
 
     def setDebugmode(self, d):
         """ A Setter for Toki"""
@@ -35,6 +35,26 @@ class Oscartokiclass:
         """ A getter for debugmode"""
         return self.debugMode
 
+    def setPeerURL(self, p):
+        """ A Setter for peerURL"""
+        self.peerURL = p
+    def getPeerURL(self):
+        """ A getter for peerURL"""
+        return self.peerURL
+
+    def setOscarURL(self, o):
+        """ A Setter for oscarURL"""
+        self.oscarURL = o
+    def getOscarURL(self):
+        """ A getter for oscarURL"""
+        return self.oscarURL
+
+    def setAppName(self, a):
+        """ A Setter for appName"""
+        self.appName = a
+    def getAppName(self):
+        """ A getter for appName"""
+        return self.appName
 
     def tokiPrint(self, toprintt):
         """ A personnal print for Oscartoki will show what happens
@@ -125,6 +145,16 @@ class Oscartokiclass:
             print("There is an error for the toki you have sent, maybe it's not Valid, please Check it again!")
             return False
 
+    #
+    # This method allow the python microservices to send requests to Oscar
+    # as puces to increment the utilisation of this microservice
+    #
+    def pingPuceToOscar(self):
+        self.tokiPrint("Sending a puce ---->>> to Oscar")
+        if len(self.clientkey) > 2 :
+            result = requests.post(self.oscarURL+"/api/v1/puces", data={'client':self.clientkey, 'app_name': self.appName})
+            response = json.load(result.content)
+            self.tokiPrint(response)
 
     #
     # Take the toki in param and generate a uniue queue
@@ -184,26 +214,29 @@ class Oscartokiclass:
     #
     def checkToki(self):
 
-            session_requests = requests.session()
+        session_requests = requests.session()
 
-            # Get login csrf token
-            result = session_requests.get(self.peerURL, headers={'oscartoki': self.getToki()})
-            response = json.load(result.content)
+        # Get login csrf token
+        result = session_requests.get(self.peerURL, headers={'oscartoki': self.getToki()})
+        response = json.load(result.content)
 
-            if(response):
+        if(response != None):
 
-                # We verify the key respond by the peer
-                if(response.tokikey != None and self.verifyTokiKey(self.getToki(), response.tokikey) == True):
-                    
-                    self.tokiPrint("TokiKey receive on check is valid!")
-                    return [True, response.data.tokikey]
-                    
-                else:
-
-                    self.tokiPrint("TokiKey receive on check is invalid!")
-                    return [False, "TokiKey receive on check is invalid!"]
-
-            else:
+            # We verify the key respond by the peer
+            if(response.tokikey != None and self.verifyTokiKey(self.getToki(), response.tokikey) == True):
                 
-                self.tokiPrint("Any respinse provided!")
-                return [False, "Any respinse provided!"]
+                # We ping Oscar for this puce:
+                self.pingPuceToOscar()
+
+                self.tokiPrint("TokiKey receive on check is valid!")
+                return [True, response.data.tokikey]
+                
+            else:
+
+                self.tokiPrint("TokiKey receive on check is invalid!")
+                return [False, "TokiKey receive on check is invalid!"]
+
+        else:
+            
+            self.tokiPrint("Any respinse provided!")
+            return [False, "Any respinse provided!"]

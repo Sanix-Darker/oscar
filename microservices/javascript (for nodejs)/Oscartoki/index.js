@@ -10,6 +10,8 @@ class Oscartokiclass {
         this.toki = "";
         this.lifetime_of_toki = 3;
         this.peerURL = ""
+        this.oscarURL = ""
+        this.appName = ""
     }
   
     /**
@@ -42,7 +44,37 @@ class Oscartokiclass {
     getPeerURL(){
         return this.peerURL;
     }
-  
+
+    /**
+     * A Setter for the oscarURL param
+     * @return
+     */
+    setOscarURL(o){
+        this.oscarURL = 0;
+    }
+    /**
+     * A getter for the oscarURL param
+     * @return
+     */
+    getOscarURL(){
+        return this.oscarURL;
+    }
+
+    /**
+     * A Setter for the appName param
+     * @return
+     */
+    setAppName(a){
+        this.appName = a;
+    }
+    /**
+     * A getter for the appName param
+     * @return
+     */
+    getAppName(){
+        return this.appName;
+    }
+
 
     /**
      * A Setter for the toki param
@@ -185,6 +217,28 @@ class Oscartokiclass {
 
     }
 
+
+    /**
+     * The ping puce method to tell Oscar a request have been done
+     * 
+     */
+    pingPuceToOscar(){
+
+        axios({
+            method: 'get',
+            url: this.oscarURL+"/api/v1/puces", 
+            data: {'client': this.clientkey, 'app_name': this.appName }
+        }).then(response => {
+            this.tokiPrint("response: ", response)
+
+        })
+        .catch(error => {
+
+            this.tokiPrint("error: "+ error);
+
+        });
+    }
+
     /**
      * Take the toki in param and generate a uniue queue
      * @param {*} toki 
@@ -265,6 +319,8 @@ class Oscartokiclass {
                         // We verify the key respond by the peer
                         if(typeof response.data.tokikey !== "undefined" && response.data.tokikey !== null && this.verifyTokiKey(this.getToki(), response.data.tokikey) === true){
                             
+                            this.pingPuceToOscar();
+
                             this.tokiPrint("TokiKey receive on check is valid!");
                             resolve([true, response.data.tokikey]);
                             

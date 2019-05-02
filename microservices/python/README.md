@@ -16,7 +16,7 @@ OscarToki Protocol is a simple way to generate a kind of a token, that have:
 
 ## How to use:
 
-- First import the module in the script after hit this command: `cd  OscarToki && pip install -r requirements.txt`
+- First import the module in the script after hit this command: `cd OscarToki && pip install -r requirements.txt`
 - Second Just follow this example to use it on your python client:
 
 ```python
