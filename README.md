@@ -13,22 +13,23 @@ by roling between Server - Client and Client - Server.
 - When the request arrives to the microservice, its verify it:
     - If it's valid.
     - If it's not yet Old.
-- If the microservice authentificateit, it's response to the client with a generate toki too, that the client will verify First before accepting the response.
+- If the microservice authentificateit, it's response to the client with a generate toki too and a secretKey generated from the precedent toki sent.
+- The client will verify First the toki before accepting the response and verify the secretKey to resend the real request.
 
-`NOTE:` When all this process is running, Oscar-Backend will get instntly the current activity between microservices's on a client and all users connected to him.
+`NOTE:` When all this process is running, Oscar-Backend will get instantly the current activity between microservices's on a client and all users connected to him.
 
 ## Available Clients-Server and Server-Client
 
 This is the list of available oscartoki clients implementations.
 - For user's app:
-    - Android Client of Oscar-Toki wrote in Java.
-    - ReactJs Client wrote in JavaScript
-    - Swift Client wrote in Swift
+    - Android Microservice of Oscar-Toki wrote in Java. [Need improvement]
+    - ReactJs Microservice wrote in JavaScript [Work fine]
+    - Swift Microservice wrote in Swift [in development]
 
 - For client's app:
-    - Python client of Oscar-Toki.
-    - NodeJs client inspired on [ReactJs Source code up here].
-    - Ruby client.
+    - Python Microservice of Oscar-Toki. [Work fine]
+    - NodeJs Microservice inspired on [ReactJs Source code up here]. [Work fine]
+    - Ruby Microservice. [not hardly tested]
 
 ## Author
 

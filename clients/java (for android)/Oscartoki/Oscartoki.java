@@ -14,19 +14,16 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-
-import javax.net.ssl.HttpsURLConnection;
 
 public class Oscartoki {
 
   private String clientkey;
   private Boolean debugMode = false;
   private String toki;
-  private String peerURL = "";
+  private final String peerURL = "";
   private final Integer lifetime_of_toki = 3; // not in millisecond or second just the difference between 9 first digits
                                               // of
   // timestamp
@@ -303,7 +300,7 @@ public class Oscartoki {
    * @param args
    */
 
-  public Object[] checkToki() throws Exception {
+  public String[] checkToki() throws Exception {
 
     String url = this.peerURL;
 
@@ -317,6 +314,7 @@ public class Oscartoki {
     con.setRequestProperty("oscartoki", this.getToki());
 
     int responseCode = con.getResponseCode();
+    this.tokiPrint("\nToki sending the Request===================================");
     this.tokiPrint("\nSending 'GET' request to URL : " + url);
     this.tokiPrint("Response Code : " + responseCode);
 
@@ -330,29 +328,44 @@ public class Oscartoki {
     in.close();
 
     // print result
-    System.out.println(response.toString());
+    this.tokiPrint("Response: " + response.toString());
 
-
-    // A LOTOF WORK TO DO HERE!!!! TO FOLLOW THE LIB
     // We verify the key respond by the peer
-    if( this.verifyTokiKey(this.getToki(), response.data.tokikey) === true){
-        
-        this.tokiPrint("TokiKey receive on check is valid!");
-        resolve([true, response.data.tokikey]);
-        
-    }else{
+    // Here the code need externals lib to proceed, and i did'nt want to add it, to
+    // not force the utilisation of a specific lib by a lamda developper on a lambda
+    // project,
+    // SOOOO, it's really simple what you have to do down here
+    // Down there is the algorithm to proceed:
 
-        this.tokiPrint("TokiKey receive on check is invalid!");
-        resolve([false, "TokiKey receive on check is invalid!"]);
+    // 1 - We parse the response.toString() from the http GET request to obtain an
+    // JSON object to easyly extract tokikey.
+    // 2- That's all you have to do here, so use the librairy you want to implement
+    // the JSON parse.
+    // 3- Please contact the Author of OscarToki if there is a problem.
+    // [Sanix-darker]
 
+    String tokikey = ""; // Replace the value Parsed from the request here (the tokikey).
+    String[] array_to_return = new String[2];
+
+    if (this.verifyTokiKey(this.getToki(), tokikey) == true) {
+
+      this.tokiPrint("TokiKey receive on check is valid!");
+      array_to_return[0] = "true";
+      array_to_return[1] = tokikey;
+
+    } else {
+
+      this.tokiPrint("TokiKey receive on check is invalid!");
+      array_to_return[0] = "false";
+      array_to_return[1] = "TokiKey receive on check is invalid!";
     }
 
-
+    return array_to_return;
   }
 
   // An example of using Oscar-Toki
   // main method will be called first when program is executed
-  public static void main(String args[]) {
+  public static void main(String args[]) throws Exception {
 
     // Instantiate the OscarToki
     Oscartoki OscarToki = new Oscartoki();
@@ -388,14 +401,52 @@ public class Oscartoki {
     // valide
     System.out.println("Example_toki: '" + Example_toki + "'");
 
-    // If the Toki is valid
-    if (OscarToki.verifyToki(Example_toki) == true) {
+    String[] result = OscarToki.checkToki();
+    String checktoki_status = (String) result[0];
+    String checktoki_response = (String) result[1];
 
-      System.out.println("This is a Valid Toki!");
+    if ("true".equals(checktoki_status)) {
 
-    } else { // the toki is not valid
+      OscarToki.tokiPrint("Stating tokiCheck...");
 
-      System.out.println("Oops! This Toki is not valid!");
+      String oscartokikey = checktoki_response;
+      OscarToki.tokiPrint("oscartokikey: " + oscartokikey);
+
+      // Now you have the Key (toki and you can request with that now by adding it in
+      // headers)
+      // Your requested url (http://mira....)
+      String url = "";
+
+      URL obj = new URL(url);
+      HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+      // optional default is GET
+      con.setRequestMethod("GET");
+      // add request header
+      con.setRequestProperty("oscartoki", OscarToki.getToki());
+      con.setRequestProperty("oscartokikey", oscartokikey);
+      int responseCode = con.getResponseCode();
+
+      StringBuffer response;
+      try (BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()))) {
+        String inputLine;
+        response = new StringBuffer();
+        while ((inputLine = in.readLine()) != null) {
+          response.append(inputLine);
+        }
+      }
+      // print result
+      OscarToki.tokiPrint("Response: " + response.toString());
+
+      ///////////////////////////////////////////////////////////////////////
+      ////// --------------------------------------------------------------//
+      ////// DO YOUR STUFF HERE CUZ THE TOKI AND IT's KEY ARE BOTH VALIDS //
+      ////// --------------------------------------------------------------//
+      ///////////////////////////////////////////////////////////////////////
+
+    } else {
+
+      // Let's print the error
+      OscarToki.tokiPrint("Error: " + checktoki_response);
 
     }
 

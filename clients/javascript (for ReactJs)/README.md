@@ -73,12 +73,6 @@ checkkToki.then((oscar_result) => {
     console.log("oscar_result: ", oscar_result);
     if(oscar_result[0] === true){
 
-        ///////////////////////////////////////////////////////////////////////
-        //////--------------------------------------------------------------///
-        ////// DO YOUR STUFF HERE CUZ THE TOKI AND IT's KEY ARE BOTH VALIDS  //
-        //////--------------------------------------------------------------///
-        ///////////////////////////////////////////////////////////////////////
-
         // Now you have the Key (toki and you can request with that now by adding it in headers)
         // oscartokikey: value
         const oscartokikey = oscar_result[1];
@@ -92,7 +86,12 @@ checkkToki.then((oscar_result) => {
             }
         }).then(response => {
             console.log(">>response.data: ", response.data);
-
+            
+            ///////////////////////////////////////////////////////////////////////
+            //////--------------------------------------------------------------///
+            ////// DO YOUR STUFF HERE CUZ THE TOKI AND IT's KEY ARE BOTH VALIDS  //
+            //////--------------------------------------------------------------///
+            ///////////////////////////////////////////////////////////////////////
 
         }).catch(error => {
 
