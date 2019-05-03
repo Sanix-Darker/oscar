@@ -35,7 +35,7 @@ OscarToki Protocol is a simple way to generate a kind of a token, that have:
     System.out.println("# ----------------------------------");
     // It's important to read this variable fomr a config file and not to
     // put it hard in the code like this[FOR SECURITY], it's just a quick example
-    String Example_clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
+    String Example_clientkey = "5cbc654dc3355e382201615c";
     // set name member of this object
     OscarToki.setClientkey(Example_clientkey);
     OscarToki.generateToki();
@@ -108,7 +108,8 @@ OscarToki Protocol is a simple way to generate a kind of a token, that have:
 
 ## How to test:
 
-You can Run Test.java(Available on ./Oscartoki/Test.java) to see what happens!
+You can Run main function available on OscarTokiJava project to see what happens!
+Or just go to see implementations on "example_implementation_tests" directory.
 
 ## To build a new Jar
 
@@ -120,7 +121,6 @@ jar cf "./clients/java (for android)/dist/Oscartoki.jar" "./clients/java (for an
 ## IMPORTANT NOTE:
 
 IN PRODUCTION, YOU "CAN" USE THE COMPILED VERSION "JAR" AVAILABLE IN (./dist/Oscartoki.jar) AS A LIBRARY TO IMPORT IN THE PROJECT.
-
 
 ## Author
 

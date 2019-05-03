@@ -2,6 +2,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "CodeLens (Launch) - Oscartokiclass",
+            "request": "launch",
+            "mainClass": "Oscartokiclass",
+            "projectName": "oscar_tokis_eb601"
+        },
+        {
+            "type": "java",
             "name": "CodeLens (Launch) - Oscartoki",
             "request": "launch",
             "mainClass": "Oscartoki"

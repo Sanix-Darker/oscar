@@ -12,7 +12,7 @@ Oscartoki = Oscartokiclass.Oscartokiclass(True)
  * """
 #  It's important to read this variable fomr a config file and not to 
 #  put it hard in the code like this[FOR SECURITY], it's just a quick example 
-Example_clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873"
+Example_clientkey = "5cbc654dc3355e382201615c"
 
 #  set the clientkey to Oscartoki
 Oscartoki.setClientkey(Example_clientkey)
@@ -78,7 +78,7 @@ app = Flask(__name__)
 import Oscartokiclass
 
 # Let's declare or BETTER take from a onfig file theese information:
-Example_clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873"
+Example_clientkey = "5cbc654dc3355e382201615c"
 
 # The app name need to be in minuscul letters
 AppName = "test_app"

@@ -5,7 +5,8 @@ Between a microservice that calculate the sum of two number.
 
 ## available implementations
 
-- Python - Javascript
+- Javascript - Python (Where Javascript is a client app and python the microservice).
+- Java - Python (Where Java is a client app and python the microservice).
 
 ## Author
 

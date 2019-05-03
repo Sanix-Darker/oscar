@@ -13,7 +13,7 @@ let Oscartoki = new Oscartokiclass(true);
  * */
 // It's important to read this variable fomr a config file and not to 
 // put it hard in the code like this[FOR SECURITY], it's just a quick example 
-const clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
+const clientkey = "5cbc654dc3355e382201615c";
 // set the clientkey to Oscartoki
 Oscartoki.setClientkey(clientkey);
 

@@ -8,7 +8,7 @@ class Oscartokiclass {
         this.clientkey = "";
         this.debugMode = debugMode;
         this.toki = "";
-        this.lifetime_of_toki = 3;
+        this.lifetime_of_toki = 5;
         this.peerURL = ""
         this.oscarURL = ""
         this.appName = ""

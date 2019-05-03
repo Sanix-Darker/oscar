@@ -48,7 +48,7 @@ let Oscartoki = new Oscartokiclass(true);
  * */
 // It's important to read this variable fomr a config file and not to 
 // put it hard in the code like this[FOR SECURITY], it's just a quick example 
-Example_clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873";
+Example_clientkey = "5cbc654dc3355e382201615c";
 // set the clientkey to Oscartoki
 Oscartoki.setClientkey(Example_clientkey);
 // Generate the Toki
@@ -86,7 +86,7 @@ checkkToki.then((oscar_result) => {
             }
         }).then(response => {
             console.log(">>response.data: ", response.data);
-            
+
             ///////////////////////////////////////////////////////////////////////
             //////--------------------------------------------------------------///
             ////// DO YOUR STUFF HERE CUZ THE TOKI AND IT's KEY ARE BOTH VALIDS  //
@@ -110,6 +110,7 @@ checkkToki.then((oscar_result) => {
 ## How to test:
 
 You can Run test.js to see what happens!
+Or just go to see implementations on "example_implementation_tests" directory.
 
 ## IMPORTANT NOTE:
 

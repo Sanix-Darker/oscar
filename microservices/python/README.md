@@ -37,7 +37,7 @@ Oscartoki = Oscartokiclass.Oscartokiclass(True)
  * """
 #  It's important to read this variable fomr a config file and not to 
 #  put it hard in the code like this[FOR SECURITY], it's just a quick example 
-Example_clientkey = "aess3212-kj321gyu-gsad76-dsa687-21y873"
+Example_clientkey = "5cbc654dc3355e382201615c"
 #  set the clientkey to Oscartoki
 Oscartoki.setClientkey(Example_clientkey)
 #  Generate the Toki
